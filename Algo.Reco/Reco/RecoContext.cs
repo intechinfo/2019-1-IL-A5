@@ -31,13 +31,52 @@ namespace Algo
 
         public double SimilarityPearson( User u1, User u2 )
         {
-            // This should call the "real" one below.
-            throw new NotImplementedException();
+            var commonMovies = u1.Ratings.Keys.Intersect( u2.Ratings.Keys );
+            return SimilarityPearson( commonMovies.Select( m => (u1.Ratings[m], u2.Ratings[m]) ) );
         }
 
         public double SimilarityPearson( IEnumerable<(int x, int y)> values )
         {
-            throw new NotImplementedException();
+            double sumX = 0.0;
+            double sumY = 0.0;
+            double sumXY = 0.0;
+            double sumX2 = 0.0;
+            double sumY2 = 0.0;
+            int N = 0;
+            foreach( var t in values )
+            {
+                sumXY += t.x * t.y;
+                sumX += t.x;
+                sumY += t.y;
+                sumX2 += t.x * t.x;
+                sumY2 += t.y * t.y;
+                ++N;
+            }
+            #region  Edge case....
+            if( N == 0 ) return 0.0;
+            if( N == 1 )
+            {
+                var onlyOne = values.Single();
+                double d = Math.Abs( onlyOne.x - onlyOne.y );
+                return 1 / (1 + d);
+            }
+            #endregion
+
+            double numerator = sumXY - (sumX * sumY / N);
+
+            double denominatorX = sumX2 - (sumX * sumX / N);
+            double denominatorY = sumY2 - (sumY * sumY / N);
+            var result = numerator / Math.Sqrt( denominatorX * denominatorY );
+
+            #region Edge case
+            if( double.IsNaN( result ) )
+            {
+                double sumSquare = values.Select( v => v.x - v.y ).Select( v => v * v ).Sum();
+                result = 1.0 / (1 + Math.Sqrt( sumSquare ));
+            }
+            #endregion
+
+            return result;
         }
 
         public bool LoadFrom( string folder )
