@@ -93,9 +93,45 @@ namespace Algo
             return true;
         }
 
-        public IEnumerable<(Movie movie, double percentage)> GetRecommandation( User u, int maxCount )
+        public class RecoOptions
         {
-            throw new NotImplementedException();
+            public int MaxCount { get; set; } = 20;
+
+            public int NbSimilarUser { get; set; } = 500;
         }
+
+       public IEnumerable<(Movie movie, double weight)> GetRecommandation( User u, RecoOptions options = null )
+        {
+            options = options ?? new RecoOptions();
+            var similarUsers = GetSimilarUsers( u, options.NbSimilarUser );
+
+            var allMovies = similarUsers
+                            .SelectMany( su => su.u.Ratings.Keys
+                                                .Where( m => !u.Ratings.ContainsKey( m ) )
+                                                .Select( m => (Movie:m, Weight:su.similarity * su.u.Ratings[m] ) ) );
+            var continued = allMovies.GroupBy( mw => mw.Movie )
+                                     .Select( g => (movie: g.Key, w: g.Sum( mw => mw.Weight )) )
+                                     .OrderByDescending( mw => mw.w )
+                                     .Take( options.MaxCount );
+            return continued;
+        }
+
+        public IReadOnlyList<(User u, double similarity)> GetSimilarUsers( User u, int nbSimilarUser )
+        {
+            (User u, double similarity)[] simialrs = new (User u, double similarity)[ Users.Count - 1 ];
+            int i = 0;
+            foreach( var other in Users )
+            {
+                if( u == other ) continue;
+                var s = SimilarityPearson( u, other );
+                simialrs[i++] = (other, s);
+            }
+            return simialrs
+                    .OrderByDescending( t =>  Math.Abs(t.similarity) )
+                    .Take( nbSimilarUser )
+                    .ToArray();
+        }
+
+
     }
 }
