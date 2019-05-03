@@ -140,5 +140,14 @@ namespace Algo.Tests
             Assert.That( _context.SimilarityPearson( _context.Users[486], _context.Users[286] ), Is.EqualTo( -0.692820323027552 ).Within( 1e-15 ) );
         }
 
+
+        [Test]
+        public void getting_reco()
+        {
+            User u = _context.Users[3712];
+
+             IEnumerable<(Movie movie, double percentage)> toSee = _context.GetRecommandation( u, maxCount: 20 );
+        }
+
     }
 }

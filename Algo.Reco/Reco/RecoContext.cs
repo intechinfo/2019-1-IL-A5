@@ -93,5 +93,9 @@ namespace Algo
             return true;
         }
 
+        public IEnumerable<(Movie movie, double percentage)> GetRecommandation( User u, int maxCount )
+        {
+            throw new NotImplementedException();
+        }
     }
 }
