@@ -45,10 +45,10 @@ namespace Algo.Optim
             MaxArrivalTime = new DateTime( 2010, 7, 27, 17, 0, 0 );
             MinDepartureTime = new DateTime( 2010, 8, 3, 15, 0, 0 );
 
-            int i = 0;
+            int iGuest = 0;
             foreach( var g in Guests )
             {
-                g.Index = i++;
+                g.Index = iGuest++;
                 var aFlights = _db.GetFlights( MaxArrivalTime.Date, g.Location, Location )
                                 .Concat( _db.GetFlights( MaxArrivalTime.Date.AddDays( -1 ), g.Location, Location ) )
                                 .Where( f => f.ArrivalTime < MaxArrivalTime
