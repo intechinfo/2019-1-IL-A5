@@ -17,7 +17,7 @@ namespace Algo.Optim
 
     }
 
-    public class Meeting
+    public class Meeting : SolutionSpace
     {
         readonly FlightDatabase _db;
 
@@ -67,14 +67,8 @@ namespace Algo.Optim
                     dimensions[i] = Guests[i-9].DepartureFlights.Count;
                 }
             }
-            Dimensions = dimensions;
+            Initialize( dimensions );
         }
-
-        public IReadOnlyList<int> Dimensions { get; }
-
-
-        public double Cardinality => Dimensions.Aggregate( 1.0, ( acc, val ) => acc * val );
-
 
         public Airport Location { get; }
 
@@ -83,6 +77,11 @@ namespace Algo.Optim
         public DateTime MaxArrivalTime { get; }
 
         public DateTime MinDepartureTime { get; }
+
+        protected override SolutionInstance CreateInstance( IReadOnlyList<int> coords )
+        {
+            return new MeetingInstance( this, coords );
+        }
 
     }
 }
