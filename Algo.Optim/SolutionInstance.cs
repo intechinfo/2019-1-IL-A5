@@ -48,6 +48,34 @@ namespace Algo.Optim
             }
         }
 
+        public IEnumerable<SolutionInstance> Neighbors
+        {
+            get
+            {
+                for( int i = 0; i < Coords.Count; ++i )
+                {
+                    if( Coords[i] > 0 )
+                    {
+                        var clone = Coords.ToArray();
+                        --clone[i];
+                        yield return Space.DoCreateInstance( clone );
+                    }
+                    if( Coords[i] < Space.Dimensions[i]-1 )
+                    {
+                        var clone = Coords.ToArray();
+                        ++clone[i];
+                        yield return Space.DoCreateInstance( clone );
+                    }
+                }
+            }
+        }
+
+        public SolutionInstance FindBestAround()
+        {
+            var b = Neighbors.Best();
+            return b.Cost > Cost ? this : b.FindBestAround();
+        }
+
         protected abstract double ComputeCost();
     }
 }

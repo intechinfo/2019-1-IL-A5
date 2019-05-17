@@ -44,15 +44,17 @@ namespace Algo.Optim
 
         public SolutionInstance ComputeBestRandom( int count )
         {
-            SolutionInstance best = null;
-            while( count-- > 0 )
-            {
-                var rand = CreateRandomInstance();
-                if( best == null || rand.Cost < best.Cost ) best = rand;
-            }
-            return best;
+            return Enumerable.Range( 0, count ).Select( _ => CreateRandomInstance() ).Best();
         }
-        SolutionInstance DoCreateInstance( IReadOnlyList<int> coords )
+
+        public SolutionInstance ComputeBestMonteCarlo( int count )
+        {
+            return Enumerable.Range( 0, count )
+                    .Select( _ => CreateRandomInstance().FindBestAround() )
+                    .Best();
+        }
+
+        internal SolutionInstance DoCreateInstance( IReadOnlyList<int> coords )
         {
             var s = CreateInstance( coords );
             if( _bestEver == null || _bestEver.Cost > s.Cost ) _bestEver = s;
