@@ -146,7 +146,7 @@ namespace Algo.Tests
         {
             User u = _context.Users[3712];
 
-             IEnumerable<(Movie movie, double percentage)> toSee = _context.GetRecommandation( u, maxCount: 20 );
+//             IEnumerable<(Movie movie, double percentage)> toSee = _context.GetRecommandation( u, maxCount: 20 );
         }
 
     }

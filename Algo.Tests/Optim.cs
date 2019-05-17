@@ -74,5 +74,15 @@ namespace Algo.Tests
 
         }
 
+
+        [Test]
+        public void testing_Cardinality()
+        {
+            FlightDatabase db = new FlightDatabase( GetFlightDataPath() );
+            var m = new Meeting( db );
+
+            Console.WriteLine( "Cardinality = " + m.Cardinality );
+
+        }
     }
 }
