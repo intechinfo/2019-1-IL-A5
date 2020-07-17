@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Algo.Optim.Meeting">
+    <Position X="6.5" Y="4" Width="4.5" />
+    <Members>
+      <Field Name="_db" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAhAAAAAAAAAAAAAJAAAAAAAAAAAAAAAAAAAAAgAg=</HashCode>
+      <FileName>Meeting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Algo.Optim.MeetingInstance">
+    <Position X="0.75" Y="3.75" Width="4.25" />
+    <AssociationLine Name="Space" Type="Algo.Optim.Meeting">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.711" Y="0.111" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>MeetingInstance.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Space" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Algo.Optim.SolutionInstance">
+    <Position X="0.5" Y="0.5" Width="4.75" />
+    <Members>
+      <Field Name="_cost" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Space" Type="Algo.Optim.SolutionSpace">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.472" Y="0.074" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAACAAAAAAAAAAABAAAQAAAQAAaAAAAAgAEAA=</HashCode>
+      <FileName>SolutionInstance.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Space" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Algo.Optim.SolutionSpace">
+    <Position X="6.5" Y="0.5" Width="4.5" />
+    <Members>
+      <Field Name="_bestEver" Hidden="true" />
+      <Field Name="_random" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AQAABAEAgAAAAQAAAUAAAAIAAAAAAAIAAAAAAAAACAE=</HashCode>
+      <FileName>SolutionSpace.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

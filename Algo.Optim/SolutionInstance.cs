@@ -19,7 +19,7 @@ namespace Algo.Optim
             Debug.Assert( CheckCoords() );
         }
 
-        public bool CheckCoords()
+        bool CheckCoords()
         {
             if( Coords.Count == Space.Dimensions.Count )
             {
@@ -38,6 +38,16 @@ namespace Algo.Optim
         public IReadOnlyList<int> Coords { get; }
 
         public SolutionSpace Space { get; }
+
+        public SolutionInstance Mutate()
+        {
+            return null;
+        }
+
+        public SolutionInstance CrossWith( SolutionInstance mom )
+        {
+            return null;
+        }
 
         public double Cost
         {

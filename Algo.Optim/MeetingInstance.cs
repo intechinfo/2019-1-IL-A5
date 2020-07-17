@@ -16,7 +16,6 @@ namespace Algo.Optim
         public new Meeting Space => (Meeting)base.Space;
 
 
-
         protected override double ComputeCost()
         {
             var arrivals = Space.Guests.Select( g => g.ArrivalFlights[Coords[g.Index]] ).ToArray();
